@@ -1,0 +1,6 @@
+<router-outlet></router-outlet>
+<div *ngIf="router.url === '/app-contador'">
+  <app-contador [valor]="10" (valorMudou)="onValorMudou($event)">
+  </app-contador>
+  <hr>
+</div>

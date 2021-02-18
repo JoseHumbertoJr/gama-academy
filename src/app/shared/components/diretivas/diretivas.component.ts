@@ -1,0 +1,27 @@
+import { Component, OnInit } from '@angular/core';
+
+@Component({
+  selector: 'app-diretivas',
+  templateUrl: './diretivas.component.html',
+  styleUrls: ['./diretivas.component.css']
+})
+export class DiretivasComponent implements OnInit {
+
+  frutas = [
+    'maçã',
+    'abacaxi',
+    'banana'
+  ]
+
+  constructor() { }
+
+  ngOnInit(): void {
+  }
+
+  exibir = true;
+
+  trocaValor(){
+    this.exibir = !this.exibir;
+  }
+
+}
