@@ -1,0 +1,37 @@
+<div class="spinner-border" role="status" *ngIf="estaCarregando">
+  <span class="visually-hidden">Loading...</span>
+</div>
+
+<div *ngIf="erroNoCarregamento">
+  <h2>Deu erro :(</h2>
+  <button (click) = "carregarContatos()">Tente Novamente</button>
+</div>
+
+
+<div style="width: 50%; margin: auto;" *ngIf="!estaCarregando && !erroNoCarregamento">
+  <table class="table">
+    <thead>
+      <tr>
+        <th scope="col">ID</th>
+        <th scope="col">NOME</th>
+        <th scope="col">CPF</th>
+        <th scope="col">BANCO</th>
+        <th scope="col">AGENCIA</th>
+        <th scope="col">CONTA CORRENTE</th>
+        <th scope="col">ACOES</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let contato of contatos">
+        <th scope="row">{{contato.id}}</th>
+        <td>{{contato.nome}}</td>
+        <td>{{contato.cpf}}</td>
+        <td>{{contato.banco}}</td>
+        <td>{{contato.ag}}</td>
+        <td>{{contato.cc}}</td>
+        <td><button class="btn-success" (click)="goDetalhes(contato.id)">Detalhes</button></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+

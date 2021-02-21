@@ -1,0 +1,17 @@
+<div class="spinner-border" role="status" *ngIf="estaCarregando">
+  <span class="visually-hidden">Loading...</span>
+</div>
+<div *ngIf="erroNoCarregamento">
+  <h2>Deu erro :(</h2>
+  <button (click)="carregarContato()">Tente Novamente</button>
+</div>
+
+<div *ngIf="!estaCarregando && !erroNoCarregamento">
+  <p>Nome: {{contato.nome}}</p>
+  <p>CPF: {{contato.cpf}}</p>
+  <p>BANCO: {{contato.banco}}</p>
+  <p>AGENCIA: {{contato.ag}}</p>
+  <p>CONTA CORRENTE: {{contato.cc}}</p>
+  <button (click)="voltar()">Voltar</button>
+</div>
+

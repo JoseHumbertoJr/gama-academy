@@ -1,1 +1,36 @@
-<p>extrato works!</p>
+<div class="spinner-border" role="status" *ngIf="estarCarregando">
+  <span class="visually-hidden">Loading...</span>
+</div>
+
+<div *ngIf="erroNoCarregamento">
+  <h2>Deu erro :(</h2>
+  <button (click) = "carregarExtrato()">Tente Novamente</button>
+</div>
+
+
+<div style="width: 50%; margin: auto;" *ngIf="!estarCarregando && !erroNoCarregamento">
+  <table class="table">
+    <thead>
+      <tr>
+        <th scope="col">ID</th>
+        <th scope="col">DATA</th>
+        <th scope="col">DESCRIÇÂO</th>
+        <th scope="col">VALOR</th>
+        <th scope="col">CATEGORIA</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let item of transacoes">
+        <th scope="row">{{item.id}}</th>
+        <td>{{item.data}}</td>
+        <td>{{item.descricao}}</td>
+        <td>{{item.valor | currency: 'BRL'}}</td>
+        <td>{{item.categoria}}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+<button (click)="paginaAnterior()" [disabled]="pagina === 1">Página anterior</button>
+<p>Página Atual: {{pagina}}</p>
+<button (click)="proximaPagina()">Próxima Página</button>
+
