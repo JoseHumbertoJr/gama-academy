@@ -1,5 +1,7 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
-import { FormGroup } from '@angular/forms';
+import { NgForm } from '@angular/forms';
+
+import { LoginService } from './login.service';
 
 @Component({
   selector: 'app-login',
@@ -15,7 +17,7 @@ export class LoginComponent implements OnInit {
   password: string;
 
 
-  constructor() { }
+  constructor(private loginService: LoginService) { }
 
   ngOnInit(): void {
   }
@@ -36,10 +38,19 @@ export class LoginComponent implements OnInit {
 
       return;
     }
-    console.log('email',this.email);
-    console.log('password',this.password);
+    this.login();
   }
-  exibeErro(nomeControle:string, form: FormGroup){
+  login(){
+    this.loginService.logar(this.email,this.password).subscribe(
+      response => {
+        console.log("Sucesso no Login!");
+      },
+      error => {
+        console.log('Deu ruim! Não logou');
+      }
+    )
+  }
+  exibeErro(nomeControle:string, form: NgForm){
     if(!form.controls[nomeControle]){
       return false;
     }
