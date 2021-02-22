@@ -1,7 +1,9 @@
-import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { of, throwError, timer } from 'rxjs';
-import { delay, mergeMap } from 'rxjs/operators';
+import { Observable, of, throwError, timer } from 'rxjs';
+import { delay, mergeMap, tap } from 'rxjs/operators';
+
+import { AuthService } from './../shared/services/auth/auth.service';
+import { LoginResponse } from './login.interface';
 
 
 @Injectable({
@@ -10,9 +12,9 @@ import { delay, mergeMap } from 'rxjs/operators';
 export class LoginService {
 
 
-  constructor(private htpp: HttpClient) { }
+  constructor(private authService: AuthService) { }
 
-  logar(email: string, senha: string){
+  logar(email: string, senha: string): Observable<LoginResponse>{
     if(email === 'jhumberto190@gmail.com' && senha === '123'){
       return of({
         usuario: {
@@ -22,7 +24,11 @@ export class LoginService {
         },
         token: 'jnsfsfi1nSDas23dn23jn2332',
       }).pipe(
-        delay(3000)
+        delay(3000),
+        tap(response => {
+          this.authService.setUsuario(response.usuario);
+          this.authService.setToken(response.token);
+        })
       );
     }
     return timer(3000).pipe(mergeMap(() => throwError('Erro generiques')));

@@ -2,8 +2,6 @@
   <div id="formContent">
 
 
-
-
     <form #form="ngForm" (ngSubmit)="onSubmit(form)">
       <input type="text" id="login" class="form-control" name="email" required email [(ngModel)]="email" placeholder="login"
       [class.is-invalid]="exibeErro('email',form)" #emailInput>
@@ -13,8 +11,13 @@
       [(ngModel)]="password" [class.is-invalid]="exibeErro('email',form)" #passwordInput placeholder="password">
       <p *ngIf="exibeErro('password',form)" class="invalid-feedback">Senha Inválida</p>
 
-      <button type="submit" class="btn btn-primary">Entrar</button>
+      <p *ngIf="erroNoLogin" style="color: red;"> Usuário ou senha inválidos</p>
+
+      <button type="submit" class="btn btn-primary" [disabled]="estaCarregando">Entrar</button>
     </form>
+    <div *ngIf="estaCarregando" class="spinner-border" role="status">
+      <span class="visually-hidden">Loading...</span>
+    </div>
 
     <div id="formFooter">
       <a class="underlineHover" href="#">Forgot Password?</a>

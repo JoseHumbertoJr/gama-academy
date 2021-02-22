@@ -1,12 +1,13 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
-import { ContatosComponent } from './contatos/contatos.component';
 import { DetalhesContatosComponent } from './contatos/detalhes-contatos/detalhes-contatos.component';
 import { ExtratoComponent } from './extrato/extrato.component';
-import { HomeComponent } from './home/home.component';
 import { LoginComponent } from './login/login.component';
 import { ContadorComponent } from './shared/components/contador/contador.component';
+import { EstaLogadoGuard } from './shared/guards/logado/esta-logado.guard';
+import { NaoLogadoGuard } from './shared/guards/nao-logado/nao-logado.guard';
+
 
 
 const routes: Routes = [
@@ -14,22 +15,22 @@ const routes: Routes = [
     path: '', redirectTo: 'login', pathMatch: 'full'
   },
   {
-  path: 'home', component: HomeComponent,
+  path: 'home', loadChildren: () => import('././home/home.module').then(m => m.HomeModule), canActivate: [EstaLogadoGuard],
   },
   {
-    path: 'login', component: LoginComponent,
+    path: 'login', component: LoginComponent, canActivate: [NaoLogadoGuard],
   },
   {
-    path: 'extrato', component: ExtratoComponent,
+    path: 'extrato', component: ExtratoComponent, canActivate: [EstaLogadoGuard],
   },
   {
-    path: 'contador', component: ContadorComponent,
+    path: 'contador', component: ContadorComponent, canActivate: [EstaLogadoGuard],
   },
   {
-    path: 'contatos', component: ContatosComponent,
+    path: 'contatos', loadChildren: () => import('./contatos/contatos.module').then(m => m.ContatosModule), canActivate: [EstaLogadoGuard],
   },
   {
-    path: 'contatos/:id', component: DetalhesContatosComponent,
+    path: 'contatos/:id', component: DetalhesContatosComponent, canActivate: [EstaLogadoGuard],
   },
   /*/{
     path: '**', component: NaoEncontradoComponent,
